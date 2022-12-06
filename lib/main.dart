@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import './question.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  void Button() {
-    print('pressed');
-  }
-
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var questionindex = 0;
+  void Button() {
+    setState(() {
+      questionindex = questionindex + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var questions = ["what's your fav animal?", "what's your fav color?"];
+    var question = ['what is your fav color?', 'what is your fav animal?'];
+
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -22,11 +31,16 @@ class MyApp extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Text('The question!'),
+              Question(question[questionindex]),
               ElevatedButton(onPressed: Button, child: Text('answer1')),
               ElevatedButton(onPressed: Button, child: Text('answer2')),
               ElevatedButton(
-                  onPressed: () => {print('answer 3')}, child: Text('answer3')),
+                  onPressed: () => {
+                        setState(() {
+                          questionindex = questionindex + 1;
+                        })
+                      },
+                  child: Text('answer3')),
             ],
           )),
 
